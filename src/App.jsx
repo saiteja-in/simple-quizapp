@@ -8,6 +8,7 @@ function App() {
   const [selected, setSelected] = useState(null)
   const [score, setScore] = useState(0)
   const [finished, setFinished] = useState(false)
+  const [answers, setAnswers] = useState([])
 
   const currentQuestion = questions[currentIndex]
   const totalQuestions = questions.length
@@ -18,6 +19,7 @@ function App() {
     setSelected(null)
     setScore(0)
     setFinished(false)
+    setAnswers([])
   }
 
   const handleSelect = (index) => {
@@ -28,14 +30,23 @@ function App() {
   const handleNext = () => {
     const isCorrect = selected === currentQuestion.answer
     const newScore = isCorrect ? score + 1 : score
+    const record = {
+      question: currentQuestion.question,
+      selected: currentQuestion.options[selected],
+      correct: currentQuestion.options[currentQuestion.answer],
+      isCorrect,
+    }
+    const newAnswers = [...answers, record]
 
     if (currentIndex + 1 >= totalQuestions) {
       setScore(newScore)
+      setAnswers(newAnswers)
       setFinished(true)
       return
     }
 
     setScore(newScore)
+    setAnswers(newAnswers)
     setCurrentIndex((prev) => prev + 1)
     setSelected(null)
   }
@@ -46,7 +57,10 @@ function App() {
     setSelected(null)
     setScore(0)
     setFinished(false)
+    setAnswers([])
   }
+
+  const wrongAnswers = answers.filter((a) => !a.isCorrect)
 
   if (!started) {
     return (
@@ -67,6 +81,20 @@ function App() {
         <p className="score">
           You scored {score} out of {totalQuestions}
         </p>
+        {wrongAnswers.length > 0 && (
+          <div className="review">
+            <h2>Review incorrect answers</h2>
+            <ul className="review-list">
+              {wrongAnswers.map((item) => (
+                <li key={item.question} className="review-item">
+                  <p className="review-question">{item.question}</p>
+                  <p className="review-wrong">Your answer: {item.selected}</p>
+                  <p className="review-correct">Correct answer: {item.correct}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <button type="button" className="btn primary" onClick={handleRestart}>
           Play Again
         </button>

@@ -2,6 +2,43 @@
   max-width: 600px;
   margin: 0 auto;
   padding: 2rem 1rem;
+  position: relative;
+}
+
+.app.light {
+  color: #213547;
+}
+
+.app.dark {
+  color: #e8e8e8;
+}
+
+.app.dark .option-btn {
+  background: #2a2a2a;
+  border-color: #444;
+  color: #e8e8e8;
+}
+
+.app.dark .option-btn.selected {
+  background: #3a3a6a;
+  border-color: #646cff;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.app.dark .theme-toggle {
+  border-color: #555;
+  color: #e8e8e8;
 }
 
 .app h1 {

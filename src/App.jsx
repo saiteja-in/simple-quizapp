@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { questions } from './data/questions'
 import './App.css'
 
@@ -26,6 +26,8 @@ function App() {
   }
 
   const handleNext = () => {
+    if (selected === null) return
+
     const isCorrect = selected === currentQuestion.answer
     const newScore = isCorrect ? score + 1 : score
 
@@ -48,11 +50,31 @@ function App() {
     setFinished(false)
   }
 
+  useEffect(() => {
+    if (!started || finished) return
+
+    const onKeyDown = (e) => {
+      if (e.key >= '1' && e.key <= '4') {
+        const index = Number(e.key) - 1
+        if (index < currentQuestion.options.length) {
+          handleSelect(index)
+        }
+      }
+      if (e.key === 'Enter') {
+        handleNext()
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [started, finished, selected, currentIndex, currentQuestion, score])
+
   if (!started) {
     return (
       <div className="app">
         <h1>Simple Quiz</h1>
         <p>Test your knowledge with {totalQuestions} multiple-choice questions.</p>
+        <p className="keyboard-hint">Tip: Press 1-4 to select, Enter to continue.</p>
         <button type="button" className="btn primary" onClick={handleStart}>
           Start Quiz
         </button>
@@ -86,7 +108,7 @@ function App() {
               className={`option-btn ${selected === index ? 'selected' : ''}`}
               onClick={() => handleSelect(index)}
             >
-              {option}
+              <span className="option-key">{index + 1}</span> {option}
             </button>
           </li>
         ))}

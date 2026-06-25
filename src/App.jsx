@@ -2,12 +2,20 @@ import { useState } from 'react'
 import { questions } from './data/questions'
 import './App.css'
 
+const HIGH_SCORE_KEY = 'simple-quiz-high-score'
+
+function getStoredHighScore() {
+  const value = localStorage.getItem(HIGH_SCORE_KEY)
+  return value ? Number(value) : 0
+}
+
 function App() {
   const [started, setStarted] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selected, setSelected] = useState(null)
   const [score, setScore] = useState(0)
   const [finished, setFinished] = useState(false)
+  const [highScore, setHighScore] = useState(getStoredHighScore)
 
   const currentQuestion = questions[currentIndex]
   const totalQuestions = questions.length
@@ -31,6 +39,10 @@ function App() {
 
     if (currentIndex + 1 >= totalQuestions) {
       setScore(newScore)
+      if (newScore > highScore) {
+        localStorage.setItem(HIGH_SCORE_KEY, String(newScore))
+        setHighScore(newScore)
+      }
       setFinished(true)
       return
     }
@@ -53,6 +65,9 @@ function App() {
       <div className="app">
         <h1>Simple Quiz</h1>
         <p>Test your knowledge with {totalQuestions} multiple-choice questions.</p>
+        {highScore > 0 && (
+          <p className="high-score">High score: {highScore} / {totalQuestions}</p>
+        )}
         <button type="button" className="btn primary" onClick={handleStart}>
           Start Quiz
         </button>
@@ -61,11 +76,17 @@ function App() {
   }
 
   if (finished) {
+    const isNewRecord = score >= highScore && score > 0
+
     return (
       <div className="app">
         <h1>Quiz Complete</h1>
         <p className="score">
           You scored {score} out of {totalQuestions}
+        </p>
+        <p className="high-score">
+          High score: {highScore} / {totalQuestions}
+          {isNewRecord && <span className="new-record"> New record!</span>}
         </p>
         <button type="button" className="btn primary" onClick={handleRestart}>
           Play Again

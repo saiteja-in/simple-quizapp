@@ -77,6 +77,12 @@ function App() {
   return (
     <div className="app">
       <h1>Simple Quiz</h1>
+      <div className="progress-bar">
+        <div
+          className="progress-fill"
+          style={{ width: `${((currentIndex + 1) / totalQuestions) * 100}%` }}
+        />
+      </div>
       <p className="question-text">{currentQuestion.question}</p>
       <ul className="options">
         {currentQuestion.options.map((option, index) => (

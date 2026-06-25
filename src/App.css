@@ -9,6 +9,21 @@
   font-size: 1.75rem;
 }
 
+.timer-hint {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.timer {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.timer-warning {
+  color: #d32f2f;
+}
+
 .question-text {
   font-size: 1.125rem;
   margin-bottom: 1.5rem;

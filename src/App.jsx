@@ -8,6 +8,7 @@ function App() {
   const [selected, setSelected] = useState(null)
   const [score, setScore] = useState(0)
   const [finished, setFinished] = useState(false)
+  const [darkMode, setDarkMode] = useState(false)
 
   const currentQuestion = questions[currentIndex]
   const totalQuestions = questions.length
@@ -48,9 +49,18 @@ function App() {
     setFinished(false)
   }
 
+  const themeClass = darkMode ? 'dark' : 'light'
+
   if (!started) {
     return (
-      <div className="app">
+      <div className={`app ${themeClass}`}>
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={() => setDarkMode((d) => !d)}
+        >
+          {darkMode ? 'Light Mode' : 'Dark Mode'}
+        </button>
         <h1>Simple Quiz</h1>
         <p>Test your knowledge with {totalQuestions} multiple-choice questions.</p>
         <button type="button" className="btn primary" onClick={handleStart}>
@@ -62,7 +72,14 @@ function App() {
 
   if (finished) {
     return (
-      <div className="app">
+      <div className={`app ${themeClass}`}>
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={() => setDarkMode((d) => !d)}
+        >
+          {darkMode ? 'Light Mode' : 'Dark Mode'}
+        </button>
         <h1>Quiz Complete</h1>
         <p className="score">
           You scored {score} out of {totalQuestions}
@@ -75,7 +92,14 @@ function App() {
   }
 
   return (
-    <div className="app">
+    <div className={`app ${themeClass}`}>
+      <button
+        type="button"
+        className="theme-toggle"
+        onClick={() => setDarkMode((d) => !d)}
+      >
+        {darkMode ? 'Light Mode' : 'Dark Mode'}
+      </button>
       <h1>Simple Quiz</h1>
       <p className="question-text">{currentQuestion.question}</p>
       <ul className="options">

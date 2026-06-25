@@ -77,6 +77,9 @@ function App() {
   return (
     <div className="app">
       <h1>Simple Quiz</h1>
+      <p className="question-counter">
+        Question {currentIndex + 1} of {totalQuestions}
+      </p>
       <p className="question-text">{currentQuestion.question}</p>
       <ul className="options">
         {currentQuestion.options.map((option, index) => (

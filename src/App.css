@@ -9,6 +9,14 @@
   font-size: 1.75rem;
 }
 
+.shuffle-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+}
+
 .question-text {
   font-size: 1.125rem;
   margin-bottom: 1.5rem;

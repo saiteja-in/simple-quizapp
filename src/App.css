@@ -62,6 +62,49 @@
   cursor: not-allowed;
 }
 
+.review {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.review h2 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.review-item {
+  padding: 0.75rem;
+  border: 1px solid #ffcdd2;
+  border-radius: 6px;
+  background: #fff5f5;
+}
+
+.review-question {
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.review-wrong {
+  margin: 0 0 0.25rem;
+  color: #c62828;
+  font-size: 0.9rem;
+}
+
+.review-correct {
+  margin: 0;
+  color: #2e7d32;
+  font-size: 0.9rem;
+}
+
 .score {
   font-size: 1.25rem;
   margin-bottom: 1.5rem;

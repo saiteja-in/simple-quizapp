@@ -25,6 +25,13 @@ function App() {
     setSelected(index)
   }
 
+  const getOptionClass = (index) => {
+    if (selected === null) return ''
+    if (index === currentQuestion.answer) return 'correct'
+    if (index === selected) return 'incorrect'
+    return 'dimmed'
+  }
+
   const handleNext = () => {
     const isCorrect = selected === currentQuestion.answer
     const newScore = isCorrect ? score + 1 : score
@@ -74,17 +81,32 @@ function App() {
     )
   }
 
+  const feedback =
+    selected === null
+      ? null
+      : selected === currentQuestion.answer
+        ? 'Correct!'
+        : 'Incorrect'
+
   return (
     <div className="app">
       <h1>Simple Quiz</h1>
       <p className="question-text">{currentQuestion.question}</p>
+      {feedback && (
+        <p
+          className={`feedback ${selected === currentQuestion.answer ? 'feedback-correct' : 'feedback-incorrect'}`}
+        >
+          {feedback}
+        </p>
+      )}
       <ul className="options">
         {currentQuestion.options.map((option, index) => (
           <li key={option}>
             <button
               type="button"
-              className={`option-btn ${selected === index ? 'selected' : ''}`}
+              className={`option-btn ${getOptionClass(index)}`}
               onClick={() => handleSelect(index)}
+              disabled={selected !== null}
             >
               {option}
             </button>

@@ -2,17 +2,30 @@ import { useState } from 'react'
 import { questions } from './data/questions'
 import './App.css'
 
+function shuffleArray(items) {
+  const arr = [...items]
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+  return arr
+}
+
 function App() {
   const [started, setStarted] = useState(false)
+  const [quizQuestions, setQuizQuestions] = useState(questions)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selected, setSelected] = useState(null)
   const [score, setScore] = useState(0)
   const [finished, setFinished] = useState(false)
+  const [shuffleEnabled, setShuffleEnabled] = useState(true)
 
-  const currentQuestion = questions[currentIndex]
-  const totalQuestions = questions.length
+  const currentQuestion = quizQuestions[currentIndex]
+  const totalQuestions = quizQuestions.length
 
   const handleStart = () => {
+    const ordered = shuffleEnabled ? shuffleArray(questions) : questions
+    setQuizQuestions(ordered)
     setStarted(true)
     setCurrentIndex(0)
     setSelected(null)
@@ -53,6 +66,14 @@ function App() {
       <div className="app">
         <h1>Simple Quiz</h1>
         <p>Test your knowledge with {totalQuestions} multiple-choice questions.</p>
+        <label className="shuffle-toggle">
+          <input
+            type="checkbox"
+            checked={shuffleEnabled}
+            onChange={(e) => setShuffleEnabled(e.target.checked)}
+          />
+          Shuffle questions
+        </label>
         <button type="button" className="btn primary" onClick={handleStart}>
           Start Quiz
         </button>

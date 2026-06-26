@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { questions } from './data/questions'
+import { getPerformanceMessage, getScorePercentage } from './utils/score'
 import './App.css'
 
 function App() {
@@ -61,12 +62,16 @@ function App() {
   }
 
   if (finished) {
+    const percentage = getScorePercentage(score, totalQuestions)
+
     return (
       <div className="app">
         <h1>Quiz Complete</h1>
         <p className="score">
           You scored {score} out of {totalQuestions}
         </p>
+        <p className="score-percentage">{percentage}%</p>
+        <p className="performance-message">{getPerformanceMessage(percentage)}</p>
         <button type="button" className="btn primary" onClick={handleRestart}>
           Play Again
         </button>

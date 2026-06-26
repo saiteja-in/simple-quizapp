@@ -48,6 +48,12 @@ function App() {
     setFinished(false)
   }
 
+  const handleQuit = () => {
+    if (window.confirm('Quit the quiz? Your progress will be lost.')) {
+      handleRestart()
+    }
+  }
+
   if (!started) {
     return (
       <div className="app">
@@ -98,6 +104,9 @@ function App() {
         disabled={selected === null}
       >
         {currentIndex + 1 === totalQuestions ? 'Finish' : 'Next'}
+      </button>
+      <button type="button" className="btn secondary quit-btn" onClick={handleQuit}>
+        Quit Quiz
       </button>
     </div>
   )

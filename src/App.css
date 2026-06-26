@@ -62,6 +62,16 @@
   cursor: not-allowed;
 }
 
+.btn.secondary {
+  background: transparent;
+  color: #666;
+  border: 1px solid #ccc;
+}
+
+.quit-btn {
+  margin-top: 0.75rem;
+}
+
 .score {
   font-size: 1.25rem;
   margin-bottom: 1.5rem;

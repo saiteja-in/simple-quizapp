@@ -76,7 +76,10 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Simple Quiz</h1>
+      <div className="quiz-header">
+        <h1>Simple Quiz</h1>
+        <p className="live-score">Score: {score}</p>
+      </div>
       <p className="question-text">{currentQuestion.question}</p>
       <ul className="options">
         {currentQuestion.options.map((option, index) => (

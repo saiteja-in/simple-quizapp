@@ -2,17 +2,22 @@ import { useState } from 'react'
 import { questions } from './data/questions'
 import './App.css'
 
+const QUIZ_LENGTH_OPTIONS = [5, 10]
+
 function App() {
   const [started, setStarted] = useState(false)
+  const [quizLength, setQuizLength] = useState(10)
+  const [quizQuestions, setQuizQuestions] = useState(questions)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selected, setSelected] = useState(null)
   const [score, setScore] = useState(0)
   const [finished, setFinished] = useState(false)
 
-  const currentQuestion = questions[currentIndex]
-  const totalQuestions = questions.length
+  const currentQuestion = quizQuestions[currentIndex]
+  const totalQuestions = quizQuestions.length
 
   const handleStart = () => {
+    setQuizQuestions(questions.slice(0, quizLength))
     setStarted(true)
     setCurrentIndex(0)
     setSelected(null)
@@ -52,7 +57,22 @@ function App() {
     return (
       <div className="app">
         <h1>Simple Quiz</h1>
-        <p>Test your knowledge with {totalQuestions} multiple-choice questions.</p>
+        <p>Choose how many questions you want to answer.</p>
+        <label className="length-label" htmlFor="quiz-length">
+          Number of questions
+        </label>
+        <select
+          id="quiz-length"
+          className="length-select"
+          value={quizLength}
+          onChange={(e) => setQuizLength(Number(e.target.value))}
+        >
+          {QUIZ_LENGTH_OPTIONS.map((length) => (
+            <option key={length} value={length}>
+              {length} questions
+            </option>
+          ))}
+        </select>
         <button type="button" className="btn primary" onClick={handleStart}>
           Start Quiz
         </button>

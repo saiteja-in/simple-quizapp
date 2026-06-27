@@ -7,28 +7,13 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selected, setSelected] = useState(null)
   const [score, setScore] = useState(0)
+  const [skipped, setSkipped] = useState(0)
   const [finished, setFinished] = useState(false)
 
   const currentQuestion = questions[currentIndex]
   const totalQuestions = questions.length
 
-  const handleStart = () => {
-    setStarted(true)
-    setCurrentIndex(0)
-    setSelected(null)
-    setScore(0)
-    setFinished(false)
-  }
-
-  const handleSelect = (index) => {
-    if (selected !== null) return
-    setSelected(index)
-  }
-
-  const handleNext = () => {
-    const isCorrect = selected === currentQuestion.answer
-    const newScore = isCorrect ? score + 1 : score
-
+  const advanceQuestion = (newScore) => {
     if (currentIndex + 1 >= totalQuestions) {
       setScore(newScore)
       setFinished(true)
@@ -40,11 +25,37 @@ function App() {
     setSelected(null)
   }
 
+  const handleStart = () => {
+    setStarted(true)
+    setCurrentIndex(0)
+    setSelected(null)
+    setScore(0)
+    setSkipped(0)
+    setFinished(false)
+  }
+
+  const handleSelect = (index) => {
+    if (selected !== null) return
+    setSelected(index)
+  }
+
+  const handleNext = () => {
+    const isCorrect = selected === currentQuestion.answer
+    const newScore = isCorrect ? score + 1 : score
+    advanceQuestion(newScore)
+  }
+
+  const handleSkip = () => {
+    setSkipped((count) => count + 1)
+    advanceQuestion(score)
+  }
+
   const handleRestart = () => {
     setStarted(false)
     setCurrentIndex(0)
     setSelected(null)
     setScore(0)
+    setSkipped(0)
     setFinished(false)
   }
 
@@ -67,6 +78,9 @@ function App() {
         <p className="score">
           You scored {score} out of {totalQuestions}
         </p>
+        {skipped > 0 && (
+          <p className="skipped-count">Skipped: {skipped}</p>
+        )}
         <button type="button" className="btn primary" onClick={handleRestart}>
           Play Again
         </button>
@@ -91,14 +105,19 @@ function App() {
           </li>
         ))}
       </ul>
-      <button
-        type="button"
-        className="btn primary"
-        onClick={handleNext}
-        disabled={selected === null}
-      >
-        {currentIndex + 1 === totalQuestions ? 'Finish' : 'Next'}
-      </button>
+      <div className="quiz-actions">
+        <button
+          type="button"
+          className="btn primary"
+          onClick={handleNext}
+          disabled={selected === null}
+        >
+          {currentIndex + 1 === totalQuestions ? 'Finish' : 'Next'}
+        </button>
+        <button type="button" className="btn secondary" onClick={handleSkip}>
+          Skip
+        </button>
+      </div>
     </div>
   )
 }

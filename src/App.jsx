@@ -7,6 +7,8 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selected, setSelected] = useState(null)
   const [score, setScore] = useState(0)
+  const [streak, setStreak] = useState(0)
+  const [bestStreak, setBestStreak] = useState(0)
   const [finished, setFinished] = useState(false)
 
   const currentQuestion = questions[currentIndex]
@@ -17,7 +19,20 @@ function App() {
     setCurrentIndex(0)
     setSelected(null)
     setScore(0)
+    setStreak(0)
+    setBestStreak(0)
     setFinished(false)
+  }
+
+  const updateStreak = (isCorrect) => {
+    if (isCorrect) {
+      const nextStreak = streak + 1
+      setStreak(nextStreak)
+      setBestStreak((best) => Math.max(best, nextStreak))
+      return
+    }
+
+    setStreak(0)
   }
 
   const handleSelect = (index) => {
@@ -28,6 +43,7 @@ function App() {
   const handleNext = () => {
     const isCorrect = selected === currentQuestion.answer
     const newScore = isCorrect ? score + 1 : score
+    updateStreak(isCorrect)
 
     if (currentIndex + 1 >= totalQuestions) {
       setScore(newScore)
@@ -45,6 +61,8 @@ function App() {
     setCurrentIndex(0)
     setSelected(null)
     setScore(0)
+    setStreak(0)
+    setBestStreak(0)
     setFinished(false)
   }
 
@@ -67,6 +85,9 @@ function App() {
         <p className="score">
           You scored {score} out of {totalQuestions}
         </p>
+        {bestStreak > 0 && (
+          <p className="streak-result">Best streak: {bestStreak} correct in a row</p>
+        )}
         <button type="button" className="btn primary" onClick={handleRestart}>
           Play Again
         </button>
@@ -76,7 +97,10 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Simple Quiz</h1>
+      <div className="quiz-header">
+        <h1>Simple Quiz</h1>
+        {streak > 0 && <p className="streak-badge">Streak: {streak}</p>}
+      </div>
       <p className="question-text">{currentQuestion.question}</p>
       <ul className="options">
         {currentQuestion.options.map((option, index) => (

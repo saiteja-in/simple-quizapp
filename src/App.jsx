@@ -2,49 +2,68 @@ import { useState } from 'react'
 import { questions } from './data/questions'
 import './App.css'
 
+function computeScore(answers) {
+  return answers.reduce((total, answer, index) => {
+    if (answer === null || answer === undefined) return total
+    return answer === questions[index].answer ? total + 1 : total
+  }, 0)
+}
+
 function App() {
   const [started, setStarted] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [answers, setAnswers] = useState([])
   const [selected, setSelected] = useState(null)
-  const [score, setScore] = useState(0)
   const [finished, setFinished] = useState(false)
 
   const currentQuestion = questions[currentIndex]
   const totalQuestions = questions.length
+  const score = computeScore(answers)
 
   const handleStart = () => {
     setStarted(true)
     setCurrentIndex(0)
+    setAnswers([])
     setSelected(null)
-    setScore(0)
     setFinished(false)
   }
 
   const handleSelect = (index) => {
-    if (selected !== null) return
     setSelected(index)
   }
 
   const handleNext = () => {
-    const isCorrect = selected === currentQuestion.answer
-    const newScore = isCorrect ? score + 1 : score
+    const newAnswers = [...answers]
+    newAnswers[currentIndex] = selected
 
     if (currentIndex + 1 >= totalQuestions) {
-      setScore(newScore)
+      setAnswers(newAnswers)
       setFinished(true)
       return
     }
 
-    setScore(newScore)
+    setAnswers(newAnswers)
     setCurrentIndex((prev) => prev + 1)
-    setSelected(null)
+    setSelected(newAnswers[currentIndex + 1] ?? null)
+  }
+
+  const handlePrevious = () => {
+    if (currentIndex === 0) return
+
+    const newAnswers = [...answers]
+    newAnswers[currentIndex] = selected
+    setAnswers(newAnswers)
+
+    const previousIndex = currentIndex - 1
+    setCurrentIndex(previousIndex)
+    setSelected(newAnswers[previousIndex] ?? null)
   }
 
   const handleRestart = () => {
     setStarted(false)
     setCurrentIndex(0)
+    setAnswers([])
     setSelected(null)
-    setScore(0)
     setFinished(false)
   }
 
@@ -91,14 +110,24 @@ function App() {
           </li>
         ))}
       </ul>
-      <button
-        type="button"
-        className="btn primary"
-        onClick={handleNext}
-        disabled={selected === null}
-      >
-        {currentIndex + 1 === totalQuestions ? 'Finish' : 'Next'}
-      </button>
+      <div className="quiz-actions">
+        <button
+          type="button"
+          className="btn secondary"
+          onClick={handlePrevious}
+          disabled={currentIndex === 0}
+        >
+          Previous
+        </button>
+        <button
+          type="button"
+          className="btn primary"
+          onClick={handleNext}
+          disabled={selected === null}
+        >
+          {currentIndex + 1 === totalQuestions ? 'Finish' : 'Next'}
+        </button>
+      </div>
     </div>
   )
 }

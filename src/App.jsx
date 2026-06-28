@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { questions } from './data/questions'
+import { getCategoryCounts } from './utils/categoryCounts'
 import './App.css'
+
+const categoryCounts = getCategoryCounts(questions)
 
 function App() {
   const [started, setStarted] = useState(false)
@@ -53,6 +56,16 @@ function App() {
       <div className="app">
         <h1>Simple Quiz</h1>
         <p>Test your knowledge with {totalQuestions} multiple-choice questions.</p>
+        <div className="topic-list">
+          <p className="topic-heading">Topics covered</p>
+          <ul className="topic-chips">
+            {Object.entries(categoryCounts).map(([category, count]) => (
+              <li key={category} className="topic-chip">
+                {category} ({count})
+              </li>
+            ))}
+          </ul>
+        </div>
         <button type="button" className="btn primary" onClick={handleStart}>
           Start Quiz
         </button>

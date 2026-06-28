@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { questions } from './data/questions'
+import { shuffleOptions } from './utils/shuffleOptions'
 import './App.css'
 
 function App() {
@@ -8,9 +9,23 @@ function App() {
   const [selected, setSelected] = useState(null)
   const [score, setScore] = useState(0)
   const [finished, setFinished] = useState(false)
+  const [displayOptions, setDisplayOptions] = useState([])
+const [correctAnswer, setCorrectAnswer] = useState(null)
 
   const currentQuestion = questions[currentIndex]
   const totalQuestions = questions.length
+
+  useEffect(() => {
+    if (!started || finished) return
+
+    const shuffled = shuffleOptions(
+}, [currentIndex, started, finished])
+      currentQuestion.answer,
+    )
+    setDisplayOptions(shuffled.options)
+    setCorrectAnswer(shuffled.correctAnswer)
+    setSelected(null)
+  }, [currentIndex, started, finished, currentQuestion])
 
   const handleStart = () => {
     setStarted(true)
@@ -26,7 +41,7 @@ function App() {
   }
 
   const handleNext = () => {
-    const isCorrect = selected === currentQuestion.answer
+    const isCorrect = selected === correctAnswer
     const newScore = isCorrect ? score + 1 : score
 
     if (currentIndex + 1 >= totalQuestions) {
@@ -37,7 +52,6 @@ function App() {
 
     setScore(newScore)
     setCurrentIndex((prev) => prev + 1)
-    setSelected(null)
   }
 
   const handleRestart = () => {
@@ -46,6 +60,8 @@ function App() {
     setSelected(null)
     setScore(0)
     setFinished(false)
+    setDisplayOptions([])
+    setCorrectAnswer(0)
   }
 
   if (!started) {
@@ -79,8 +95,8 @@ function App() {
       <h1>Simple Quiz</h1>
       <p className="question-text">{currentQuestion.question}</p>
       <ul className="options">
-        {currentQuestion.options.map((option, index) => (
-          <li key={option}>
+        {displayOptions.map((option, index) => (
+          <li key={`${option}-${index}`}>
             <button
               type="button"
               className={`option-btn ${selected === index ? 'selected' : ''}`}

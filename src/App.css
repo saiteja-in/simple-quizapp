@@ -9,6 +9,12 @@
   font-size: 1.75rem;
 }
 
+.hint {
+  color: #666;
+  font-size: 0.85rem;
+  margin: -0.75rem 0 1rem;
+}
+
 .question-text {
   font-size: 1.125rem;
   margin-bottom: 1.5rem;

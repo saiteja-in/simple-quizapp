@@ -21,7 +21,6 @@ function App() {
   }
 
   const handleSelect = (index) => {
-    if (selected !== null) return
     setSelected(index)
   }
 
@@ -78,6 +77,7 @@ function App() {
     <div className="app">
       <h1>Simple Quiz</h1>
       <p className="question-text">{currentQuestion.question}</p>
+      <p className="hint">Tap another option to change your answer.</p>
       <ul className="options">
         {currentQuestion.options.map((option, index) => (
           <li key={option}>

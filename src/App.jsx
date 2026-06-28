@@ -19,7 +19,7 @@ function App() {
     if (!started || finished) return
 
     const shuffled = shuffleOptions(
-      currentQuestion.options,
+}, [currentIndex, started, finished])
       currentQuestion.answer,
     )
     setDisplayOptions(shuffled.options)

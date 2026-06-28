@@ -8,6 +8,7 @@ function App() {
   const [selected, setSelected] = useState(null)
   const [score, setScore] = useState(0)
   const [finished, setFinished] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const currentQuestion = questions[currentIndex]
   const totalQuestions = questions.length
@@ -18,6 +19,7 @@ function App() {
     setSelected(null)
     setScore(0)
     setFinished(false)
+    setCopied(false)
   }
 
   const handleSelect = (index) => {
@@ -46,6 +48,14 @@ function App() {
     setSelected(null)
     setScore(0)
     setFinished(false)
+    setCopied(false)
+  }
+
+  const handleCopyResult = async () => {
+    const message = `I scored ${score}/${totalQuestions} on Simple Quiz!`
+    await navigator.clipboard.writeText(message)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
   if (!started) {
@@ -67,9 +77,14 @@ function App() {
         <p className="score">
           You scored {score} out of {totalQuestions}
         </p>
-        <button type="button" className="btn primary" onClick={handleRestart}>
-          Play Again
-        </button>
+        <div className="result-actions">
+          <button type="button" className="btn primary" onClick={handleRestart}>
+            Play Again
+          </button>
+          <button type="button" className="btn secondary" onClick={handleCopyResult}>
+            {copied ? 'Copied!' : 'Copy Result'}
+          </button>
+        </div>
       </div>
     )
   }

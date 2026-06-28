@@ -61,12 +61,24 @@ function App() {
   }
 
   if (finished) {
+    const incorrect = totalQuestions - score
+
     return (
       <div className="app">
         <h1>Quiz Complete</h1>
         <p className="score">
           You scored {score} out of {totalQuestions}
         </p>
+        <div className="result-stats">
+          <div className="stat stat-correct">
+            <span className="stat-value">{score}</span>
+            <span className="stat-label">Correct</span>
+          </div>
+          <div className="stat stat-incorrect">
+            <span className="stat-value">{incorrect}</span>
+            <span className="stat-label">Incorrect</span>
+          </div>
+        </div>
         <button type="button" className="btn primary" onClick={handleRestart}>
           Play Again
         </button>

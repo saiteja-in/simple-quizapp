@@ -10,7 +10,7 @@ function App() {
   const [score, setScore] = useState(0)
   const [finished, setFinished] = useState(false)
   const [displayOptions, setDisplayOptions] = useState([])
-  const [correctAnswer, setCorrectAnswer] = useState(0)
+const [correctAnswer, setCorrectAnswer] = useState(null)
 
   const currentQuestion = questions[currentIndex]
   const totalQuestions = questions.length

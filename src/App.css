@@ -5,8 +5,28 @@
 }
 
 .app h1 {
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   font-size: 1.75rem;
+}
+
+.quiz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.elapsed-badge,
+.elapsed-time {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.elapsed-time {
+  margin-bottom: 1.5rem;
 }
 
 .question-text {

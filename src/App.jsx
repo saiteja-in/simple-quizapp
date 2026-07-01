@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { questions } from './data/questions'
+import { getGrade } from './utils/grade'
 import './App.css'
 
 function App() {
@@ -61,9 +62,12 @@ function App() {
   }
 
   if (finished) {
+    const grade = getGrade(score, totalQuestions)
+
     return (
       <div className="app">
         <h1>Quiz Complete</h1>
+        <p className="grade-badge">Grade: {grade}</p>
         <p className="score">
           You scored {score} out of {totalQuestions}
         </p>

@@ -25,6 +25,10 @@ function App() {
     setSelected(index)
   }
 
+  const handleClearSelection = () => {
+    setSelected(null)
+  }
+
   const handleNext = () => {
     const isCorrect = selected === currentQuestion.answer
     const newScore = isCorrect ? score + 1 : score
@@ -91,14 +95,24 @@ function App() {
           </li>
         ))}
       </ul>
-      <button
-        type="button"
-        className="btn primary"
-        onClick={handleNext}
-        disabled={selected === null}
-      >
-        {currentIndex + 1 === totalQuestions ? 'Finish' : 'Next'}
-      </button>
+      <div className="quiz-actions">
+        <button
+          type="button"
+          className="btn primary"
+          onClick={handleNext}
+          disabled={selected === null}
+        >
+          {currentIndex + 1 === totalQuestions ? 'Finish' : 'Next'}
+        </button>
+        <button
+          type="button"
+          className="btn secondary"
+          onClick={handleClearSelection}
+          disabled={selected === null}
+        >
+          Clear
+        </button>
+      </div>
     </div>
   )
 }

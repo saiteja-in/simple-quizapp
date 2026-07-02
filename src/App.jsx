@@ -81,7 +81,7 @@ function App() {
   return (
     <div className="app">
       <h1>Simple Quiz</h1>
-      <div className="question-header">
+<span className={`difficulty-badge ${currentQuestion.difficulty?.toLowerCase() ?? 'unknown'}`}>
         <p className="question-text">{currentQuestion.question}</p>
         <span className={`difficulty-badge ${currentQuestion.difficulty.toLowerCase()}`}>
           {currentQuestion.difficulty}

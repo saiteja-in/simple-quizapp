@@ -25,6 +25,10 @@ function App() {
     setSelected(index)
   }
 
+  const handleClearSelection = () => {
+    setSelected(null)
+  }
+
   const handleNext = () => {
     const isCorrect = selected === currentQuestion.answer
     const newScore = isCorrect ? score + 1 : score
@@ -77,7 +81,12 @@ function App() {
   return (
     <div className="app">
       <h1>Simple Quiz</h1>
-      <p className="question-text">{currentQuestion.question}</p>
+<span className={`difficulty-badge ${currentQuestion.difficulty?.toLowerCase() ?? 'unknown'}`}>
+        <p className="question-text">{currentQuestion.question}</p>
+        <span className={`difficulty-badge ${currentQuestion.difficulty.toLowerCase()}`}>
+          {currentQuestion.difficulty}
+        </span>
+      </div>
       <ul className="options">
         {currentQuestion.options.map((option, index) => (
           <li key={option}>
@@ -91,14 +100,24 @@ function App() {
           </li>
         ))}
       </ul>
-      <button
-        type="button"
-        className="btn primary"
-        onClick={handleNext}
-        disabled={selected === null}
-      >
-        {currentIndex + 1 === totalQuestions ? 'Finish' : 'Next'}
-      </button>
+      <div className="quiz-actions">
+        <button
+          type="button"
+          className="btn primary"
+          onClick={handleNext}
+          disabled={selected === null}
+        >
+          {currentIndex + 1 === totalQuestions ? 'Finish' : 'Next'}
+        </button>
+        <button
+          type="button"
+          className="btn secondary"
+          onClick={handleClearSelection}
+          disabled={selected === null}
+        >
+          Clear
+        </button>
+      </div>
     </div>
   )
 }

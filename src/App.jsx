@@ -81,7 +81,12 @@ function App() {
   return (
     <div className="app">
       <h1>Simple Quiz</h1>
-      <p className="question-text">{currentQuestion.question}</p>
+      <div className="question-header">
+        <p className="question-text">{currentQuestion.question}</p>
+        <span className={`difficulty-badge ${currentQuestion.difficulty.toLowerCase()}`}>
+          {currentQuestion.difficulty}
+        </span>
+      </div>
       <ul className="options">
         {currentQuestion.options.map((option, index) => (
           <li key={option}>

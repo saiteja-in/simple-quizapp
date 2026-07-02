@@ -10,6 +10,7 @@ export const questions = [
     ],
     answer: 0,
     category: 'Web',
+    difficulty: 'Easy',
   },
   {
     id: 2,
@@ -17,6 +18,7 @@ export const questions = [
     options: ['Python', 'Java', 'JavaScript', 'C++'],
     answer: 2,
     category: 'Web',
+    difficulty: 'Easy',
   },
   {
     id: 3,
@@ -24,6 +26,7 @@ export const questions = [
     options: ['Berlin', 'Madrid', 'Paris', 'Rome'],
     answer: 2,
     category: 'Geography',
+    difficulty: 'Easy',
   },
   {
     id: 4,
@@ -31,6 +34,7 @@ export const questions = [
     options: ['5', '6', '7', '8'],
     answer: 2,
     category: 'Geography',
+    difficulty: 'Medium',
   },
   {
     id: 5,
@@ -43,6 +47,7 @@ export const questions = [
     ],
     answer: 1,
     category: 'Web',
+    difficulty: 'Easy',
   },
   {
     id: 6,
@@ -50,6 +55,7 @@ export const questions = [
     options: ['Venus', 'Mars', 'Jupiter', 'Saturn'],
     answer: 1,
     category: 'Science',
+    difficulty: 'Medium',
   },
   {
     id: 7,
@@ -57,6 +63,7 @@ export const questions = [
     options: ['40', '41', '42', '43'],
     answer: 2,
     category: 'Math',
+    difficulty: 'Easy',
   },
   {
     id: 8,
@@ -69,6 +76,7 @@ export const questions = [
     ],
     answer: 1,
     category: 'Literature',
+    difficulty: 'Medium',
   },
   {
     id: 9,
@@ -76,6 +84,7 @@ export const questions = [
     options: ['O2', 'H2O', 'CO2', 'NaCl'],
     answer: 1,
     category: 'Science',
+    difficulty: 'Hard',
   },
   {
     id: 10,
@@ -83,5 +92,6 @@ export const questions = [
     options: ['1989', '1991', '1995', '2000'],
     answer: 1,
     category: 'Web',
+    difficulty: 'Hard',
   },
 ]

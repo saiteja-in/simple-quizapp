@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { questions } from './data/questions'
+import { getPassStatus, PASS_THRESHOLD } from './utils/passFail'
 import './App.css'
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
       <div className="app">
         <h1>Simple Quiz</h1>
         <p>Test your knowledge with {totalQuestions} multiple-choice questions.</p>
+        <p className="pass-hint">Pass mark: {PASS_THRESHOLD}%</p>
         <button type="button" className="btn primary" onClick={handleStart}>
           Start Quiz
         </button>
@@ -61,9 +63,14 @@ function App() {
   }
 
   if (finished) {
+    const passed = getPassStatus(score, totalQuestions)
+
     return (
       <div className="app">
         <h1>Quiz Complete</h1>
+        <p className={`pass-status ${passed ? 'passed' : 'failed'}`}>
+          {passed ? 'Passed' : 'Failed'}
+        </p>
         <p className="score">
           You scored {score} out of {totalQuestions}
         </p>

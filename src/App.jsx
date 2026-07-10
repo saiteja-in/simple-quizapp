@@ -77,6 +77,14 @@ function App() {
   return (
     <div className="app">
       <h1>Simple Quiz</h1>
+      <div className="question-dots" aria-label={`Question ${currentIndex + 1} of ${totalQuestions}`}>
+        {Array.from({ length: totalQuestions }, (_, index) => (
+          <span
+            key={index}
+            className={`dot ${index < currentIndex ? 'done' : ''} ${index === currentIndex ? 'current' : ''}`}
+          />
+        ))}
+      </div>
       <p className="question-text">{currentQuestion.question}</p>
       <ul className="options">
         {currentQuestion.options.map((option, index) => (

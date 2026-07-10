@@ -9,6 +9,30 @@
   font-size: 1.75rem;
 }
 
+.question-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ddd;
+}
+
+.dot.done {
+  background: #646cff;
+}
+
+.dot.current {
+  background: #646cff;
+  box-shadow: 0 0 0 3px #eef0ff;
+}
+
 .question-text {
   font-size: 1.125rem;
   margin-bottom: 1.5rem;

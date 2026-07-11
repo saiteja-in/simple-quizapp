@@ -9,6 +9,12 @@
   font-size: 1.75rem;
 }
 
+.duration-hint {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
 .question-text {
   font-size: 1.125rem;
   margin-bottom: 1.5rem;

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { questions } from './data/questions'
+import { formatEstimatedDuration } from './utils/duration'
 import './App.css'
 
 function App() {
@@ -53,6 +54,9 @@ function App() {
       <div className="app">
         <h1>Simple Quiz</h1>
         <p>Test your knowledge with {totalQuestions} multiple-choice questions.</p>
+        <p className="duration-hint">
+          Estimated time: {formatEstimatedDuration(totalQuestions)}
+        </p>
         <button type="button" className="btn primary" onClick={handleStart}>
           Start Quiz
         </button>

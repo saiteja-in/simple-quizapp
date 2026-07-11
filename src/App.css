@@ -9,6 +9,33 @@
   font-size: 1.75rem;
 }
 
+.name-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.name-input {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+}
+
+.player-label,
+.player-greeting {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.player-greeting {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #646cff;
+}
+
 .question-text {
   font-size: 1.125rem;
   margin-bottom: 1.5rem;

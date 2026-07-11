@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { questions } from './data/questions'
+import { QuizResults } from './components/QuizResults'
+import { useScoreCalculator } from './hooks/useScoreCalculator'
 import './App.css'
 
 function App() {
@@ -11,6 +13,7 @@ function App() {
 
   const currentQuestion = questions[currentIndex]
   const totalQuestions = questions.length
+  const scoreSummary = useScoreCalculator(score, totalQuestions)
 
   const handleStart = () => {
     setStarted(true)
@@ -70,13 +73,10 @@ function App() {
   if (finished) {
     return (
       <div className="app">
-        <h1>Quiz Complete</h1>
-        <p className="score">
-          You scored {score} out of {totalQuestions}
+        <QuizResults score={score} total={totalQuestions} onRestart={handleRestart} />
+        <p className="score-summary">
+          {scoreSummary.label}: {scoreSummary.percentage}%
         </p>
-        <button type="button" className="btn primary" onClick={handleRestart}>
-          Play Again
-        </button>
       </div>
     )
   }

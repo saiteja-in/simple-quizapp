@@ -93,3 +93,31 @@
   font-size: 1.25rem;
   margin-bottom: 1.5rem;
 }
+
+.quiz-results {
+  text-align: center;
+}
+
+.results-formatted {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.results-tier {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.score-summary {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #646cff;
+}
+
+.btn.secondary {
+  background: transparent;
+  color: #666;
+  border: 1px solid #ccc;
+  margin-right: 0.75rem;
+  margin-bottom: 0.75rem;
+}

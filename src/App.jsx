@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { questions } from './data/questions'
 import './App.css'
 
+const OPTION_LABELS = ['A', 'B', 'C', 'D']
+
 function App() {
   const [started, setStarted] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -108,6 +110,7 @@ function App() {
               onClick={() => handleSelect(index)}
               disabled={selected !== null}
             >
+              <span className="option-label">{OPTION_LABELS[index]}</span>
               {option}
             </button>
           </li>

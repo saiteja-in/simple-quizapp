@@ -8,11 +8,13 @@ function App() {
   const [selected, setSelected] = useState(null)
   const [score, setScore] = useState(0)
   const [finished, setFinished] = useState(false)
+  const [playerName, setPlayerName] = useState('')
 
   const currentQuestion = questions[currentIndex]
   const totalQuestions = questions.length
 
   const handleStart = () => {
+    if (!playerName.trim()) return
     setStarted(true)
     setCurrentIndex(0)
     setSelected(null)
@@ -60,7 +62,23 @@ function App() {
       <div className="app">
         <h1>Simple Quiz</h1>
         <p>Test your knowledge with {totalQuestions} multiple-choice questions.</p>
-        <button type="button" className="btn primary" onClick={handleStart}>
+        <label className="name-label" htmlFor="player-name">
+          Your name
+        </label>
+        <input
+          id="player-name"
+          className="name-input"
+          type="text"
+          placeholder="Enter your name"
+          value={playerName}
+          onChange={(e) => setPlayerName(e.target.value)}
+        />
+        <button
+          type="button"
+          className="btn primary"
+          onClick={handleStart}
+          disabled={!playerName.trim()}
+        >
           Start Quiz
         </button>
       </div>
@@ -71,6 +89,7 @@ function App() {
     return (
       <div className="app">
         <h1>Quiz Complete</h1>
+        <p className="player-greeting">Well done, {playerName}!</p>
         <p className="score">
           You scored {score} out of {totalQuestions}
         </p>
@@ -91,6 +110,7 @@ function App() {
   return (
     <div className="app">
       <h1>Simple Quiz</h1>
+      <p className="player-label">Player: {playerName}</p>
       <p className="question-text">{currentQuestion.question}</p>
       {feedback && (
         <p

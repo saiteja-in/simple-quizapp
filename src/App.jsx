@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { questions } from './data/questions'
+import { getAccuracyPercentage } from './utils/accuracy'
 import './App.css'
 
 function App() {
@@ -68,12 +69,15 @@ function App() {
   }
 
   if (finished) {
+    const accuracy = getAccuracyPercentage(score, totalQuestions)
+
     return (
       <div className="app">
         <h1>Quiz Complete</h1>
         <p className="score">
           You scored {score} out of {totalQuestions}
         </p>
+        <p className="accuracy">Accuracy: {accuracy}%</p>
         <button type="button" className="btn primary" onClick={handleRestart}>
           Play Again
         </button>

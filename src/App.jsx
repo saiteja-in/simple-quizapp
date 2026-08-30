@@ -55,6 +55,12 @@ function App() {
     setFinished(false)
   }
 
+  const handleRestartClick = () => {
+    if (window.confirm('Start a new quiz? Your current results will be cleared.')) {
+      handleRestart()
+    }
+  }
+
   if (!started) {
     return (
       <div className="app">
@@ -74,7 +80,7 @@ function App() {
         <p className="score">
           You scored {score} out of {totalQuestions}
         </p>
-        <button type="button" className="btn primary" onClick={handleRestart}>
+        <button type="button" className="btn primary" onClick={handleRestartClick}>
           Play Again
         </button>
       </div>
